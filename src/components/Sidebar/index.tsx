@@ -1,0 +1,37 @@
+import React from 'react';
+import { useTranslation } from "react-i18next";
+import {
+  Icon, 
+  CloseIcon, 
+  SidebarContainer, 
+  SidebarLink, 
+  SidebarMenu, 
+  SidebarWrapper, 
+} from './SidebarElements';
+
+const Sidebar: React.FC<{isOpen: boolean, toggle: () => void}> = ({isOpen, toggle}) => {
+    const { t } = useTranslation();
+
+    return (
+        <SidebarContainer isOpen={isOpen} onClick={toggle}>
+            <Icon onClick={toggle}>
+                <CloseIcon />
+            </Icon>
+            <SidebarWrapper>
+                <SidebarMenu>
+                    <SidebarLink to='about' onClick={toggle}>
+                        {t("about")}
+                    </SidebarLink>
+                    <SidebarLink to='team' onClick={toggle}>
+                        {t("team")}
+                    </SidebarLink>
+                    <SidebarLink to='donate' onClick={toggle}>
+                        {t("donate")}
+                    </SidebarLink>
+                </SidebarMenu>
+            </SidebarWrapper>
+        </SidebarContainer>
+    )
+}
+
+export default Sidebar
