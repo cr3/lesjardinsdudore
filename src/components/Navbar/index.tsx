@@ -3,6 +3,8 @@ import { FaBars } from 'react-icons/fa';
 import { useTranslation } from "react-i18next";
 import { animateScroll as scroll } from 'react-scroll';
 import i18n from "i18next";
+import { LANGUAGES } from '../../i18n';
+import logo from '../../images/logo.png';
 import {
     MobileIcon,
     Nav,
@@ -13,8 +15,6 @@ import {
     NavLangSelect,
     NavLink,
 } from './NavbarElements';
-import { LANGUAGES } from '../../i18n';
-import logo from '../../images/logo.png';
 
 
 const Navbar: React.FC<{toggle: () => void}> = ({toggle}) => {
