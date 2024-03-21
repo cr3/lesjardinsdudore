@@ -1,16 +1,23 @@
 import i18n from "i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
 
-export const LANGUAGES = [
-  { label: "Français", code: "fr" },
-  { label: "English", code: "en" },
+interface Language {
+  code: string,
+  label: string,
+};
+
+export const LANGUAGES: Language[] = [
+  { code: "en", label: "English" },
+  { code: "fr", label: "Français"},
 ];
 
 i18n
+  .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     fallbackLng: "fr",
-    lng: "fr",
+    supportedLngs: LANGUAGES.map(l => l.code),
     interpolation: {
       escapeValue: false,
     },

@@ -67,23 +67,3 @@ export const SidebarLang = styled.div`
     display: flex;
     justify-content: center;
 `;
-
-export const SidebarLangSelect = styled.select`
-    border-radius: 50px;
-    background: #01bf71;
-    white-space: nowrap;
-    padding: 16px 64px;
-    color: #010606;
-    font-size: 16px;
-    outline: none;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    text-decoration: none;
-
-    &:hover {
-        transition: all 0.2s ease-in-out;
-        background: #fff;
-        color: #010606;
-    }
-`;

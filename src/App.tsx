@@ -2,7 +2,7 @@ import React from 'react';
 import Home from './pages';
 import { BrowserRouter } from 'react-router-dom';
 import "@fontsource/roboto";
-import './i18n';
+import './components/Lang/config';
 import './App.css';
 
 const App: React.FC = () => {

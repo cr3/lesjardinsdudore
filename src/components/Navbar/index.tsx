@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { FaBars } from 'react-icons/fa';
 import { useTranslation } from "react-i18next";
 import { animateScroll as scroll } from 'react-scroll';
-import i18n from "i18next";
-import { LANGUAGES } from '../../i18n';
 import logo from '../../images/logo.png';
+import Lang from '../Lang';
 import {
     MobileIcon,
     Nav,
@@ -12,7 +11,6 @@ import {
     NavMenu,
     NavItem,
     NavLang,
-    NavLangSelect,
     NavLink,
 } from './NavbarElements';
 
@@ -38,22 +36,18 @@ const Navbar: React.FC<{toggle: () => void}> = ({toggle}) => {
     scroll.scrollToTop();
   };
 
-  const onChangeLang = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const lang_code = e.target.value;
-    i18n.changeLanguage(lang_code);
-  };
-
   return (
     <>
       <Nav scrollNav={scrollNav}>
         <NavbarContainer>
-          <img src={logo} alt="Les jardins du Doré" onClick={toggleHome} />
+          <img src={logo} alt={t("title")} onClick={toggleHome} />
           <MobileIcon onClick={toggle}>
             <FaBars />
           </MobileIcon>
           <NavMenu>
             <NavItem>
-              <NavLink to="about"
+              <NavLink
+                to="about"
                 smooth={true}
                 duration={500}
                 spy={true}
@@ -62,7 +56,8 @@ const Navbar: React.FC<{toggle: () => void}> = ({toggle}) => {
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to="team"
+              <NavLink
+                to="team"
                 smooth={true}
                 duration={500}
                 spy={true}
@@ -71,7 +66,8 @@ const Navbar: React.FC<{toggle: () => void}> = ({toggle}) => {
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to="donate"
+              <NavLink
+                to="donate"
                 smooth={true}
                 duration={500}
                 spy={true}
@@ -81,13 +77,7 @@ const Navbar: React.FC<{toggle: () => void}> = ({toggle}) => {
             </NavItem>
           </NavMenu>
           <NavLang>
-            <NavLangSelect defaultValue={i18n.language} onChange={onChangeLang}>
-              {LANGUAGES.map(({ code, label }) => (
-                <option key={code} value={code}>
-                  {label}
-                </option>
-              ))}
-            </NavLangSelect>
+            <Lang />
           </NavLang>
         </NavbarContainer>
       </Nav>

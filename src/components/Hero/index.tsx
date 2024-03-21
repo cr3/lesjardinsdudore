@@ -17,7 +17,6 @@ import { animateScroll as scroll } from 'react-scroll';
 
 const Hero: React.FC = () => {
   const { t } = useTranslation();
-  const [hover, setHover] = useState(false);
   const [photoSrc, setPhotoSrc] = useState(Photo1);
 
   useEffect(() => {
@@ -31,10 +30,6 @@ const Hero: React.FC = () => {
     
     return () => clearInterval(intervalId);
   }, [photoSrc]);
-
-  const onHover = () => {
-    setHover(!hover);
-  };
 
   const toggleBottom = () => {
     scroll.scrollToBottom();
@@ -54,8 +49,6 @@ const Hero: React.FC = () => {
         <HeroBtnWrapper>
           <Button
             to="donate"
-            onMouseEnter={onHover}
-            onMouseLeave={onHover}
             smooth={true}
             duration={500}
             spy={true}
