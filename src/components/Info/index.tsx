@@ -10,7 +10,7 @@ import { InfoContainer,
     Subtitle, 
     ImgWrap,
     Img,
-    } from './InfoElements';
+    } from './style';
 
 const Info: React.FC<{
   lightBg: boolean,

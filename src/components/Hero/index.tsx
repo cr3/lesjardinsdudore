@@ -11,8 +11,8 @@ import {
   HeroP,
   HeroBtnWrapper,
   PhotoBg,
-} from './HeroElements';
-import { Button } from '../ButtonElement';
+} from './style';
+import { Button } from '../Button/style';
 import { animateScroll as scroll } from 'react-scroll';
 
 const Hero: React.FC = () => {

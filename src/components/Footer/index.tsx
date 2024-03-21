@@ -8,7 +8,7 @@ import {
   SocialMedia,
   SocialMediaWrap,
   SocialLogo,
-} from './FooterElements';
+} from './style';
 
 const Footer: React.FC = () => {
   const { t } = useTranslation();

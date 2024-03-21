@@ -12,7 +12,7 @@ import {
     NavItem,
     NavLang,
     NavLink,
-} from './NavbarElements';
+} from './style';
 
 
 const Navbar: React.FC<{toggle: () => void}> = ({toggle}) => {

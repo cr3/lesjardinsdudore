@@ -9,7 +9,7 @@ import {
   SidebarLink, 
   SidebarMenu, 
   SidebarWrapper, 
-} from './SidebarElements';
+} from './style';
 
 const Sidebar: React.FC<{isOpen: boolean, toggle: () => void}> = ({isOpen, toggle}) => {
   const { t } = useTranslation();
