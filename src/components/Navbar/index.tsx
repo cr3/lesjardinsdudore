@@ -47,32 +47,32 @@ const Navbar: React.FC<{toggle: () => void}> = ({toggle}) => {
           <NavMenu>
             <NavItem>
               <NavLink
-                to="about"
-                smooth={true}
-                duration={500}
-                spy={true}
-                offset={-80}>
-                  {t("about")}
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
                 to="team"
                 smooth={true}
                 duration={500}
                 spy={true}
                 offset={-80}>
-                  {t("team")}
+                  {t("teamLabel")}
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink
-                to="donate"
+                to="project"
                 smooth={true}
                 duration={500}
                 spy={true}
                 offset={-80}>
-                  {t("donate")}
+                  {t("projectLabel")}
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
+                to="contribute"
+                smooth={true}
+                duration={500}
+                spy={true}
+                offset={-80}>
+                  {t("contribute")}
               </NavLink>
             </NavItem>
           </NavMenu>

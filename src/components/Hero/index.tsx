@@ -13,7 +13,6 @@ import {
   PhotoBg,
 } from './style';
 import { Button } from '../Button/style';
-import { animateScroll as scroll } from 'react-scroll';
 
 const Hero: React.FC = () => {
   const { t } = useTranslation();
@@ -31,10 +30,6 @@ const Hero: React.FC = () => {
     return () => clearInterval(intervalId);
   }, [photoSrc]);
 
-  const toggleBottom = () => {
-    scroll.scrollToBottom();
-  };
-
   return (
     <HeroContainer id="home">
       <HeroBg>
@@ -44,18 +39,17 @@ const Hero: React.FC = () => {
         />
       </HeroBg>
       <HeroContent>
+        <HeroP>{t("intro")}</HeroP>
         <HeroH1>{t("title")}</HeroH1>
-        <HeroP>TODO</HeroP>
         <HeroBtnWrapper>
           <Button
-            to="donate"
+            to="contribute"
             smooth={true}
             duration={500}
             spy={true}
             offset={-80}
-            onClick={toggleBottom}
           >
-            {t("donate")}
+            {t("contribute")}
           </Button>
         </HeroBtnWrapper>
       </HeroContent>

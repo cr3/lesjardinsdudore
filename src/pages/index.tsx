@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useTranslation } from "react-i18next";
 import Footer from '../components/Footer';
+import Contribute from '../components/Contribute';
 import Hero from '../components/Hero';
 import Info from '../components/Info';
-import { about, team, donate } from '../components/Info/Data';
+import { project, team } from '../components/Info/Data';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 
@@ -20,9 +21,9 @@ const Home: React.FC = () => {
       <Sidebar isOpen={isOpen} toggle={toggle} />
       <Navbar toggle={toggle} />
       <Hero />
-      <Info {...about(t)} />
       <Info {...team(t)} />
-      <Info {...donate(t)} />
+      <Info {...project(t)} />
+      <Contribute />
       <Footer />
     </>
   );

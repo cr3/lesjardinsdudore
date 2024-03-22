@@ -21,14 +21,14 @@ const Sidebar: React.FC<{isOpen: boolean, toggle: () => void}> = ({isOpen, toggl
       </Icon>
       <SidebarWrapper>
         <SidebarMenu>
-          <SidebarLink to='about' onClick={toggle}>
-            {t("about")}
-          </SidebarLink>
           <SidebarLink to='team' onClick={toggle}>
-            {t("team")}
+            {t("teamLabel")}
           </SidebarLink>
-          <SidebarLink to='donate' onClick={toggle}>
-            {t("donate")}
+          <SidebarLink to='project' onClick={toggle}>
+            {t("projectLabel")}
+          </SidebarLink>
+          <SidebarLink to='contribute' onClick={toggle}>
+            {t("contribute")}
           </SidebarLink>
         </SidebarMenu>
         <SidebarLang>
