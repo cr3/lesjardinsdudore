@@ -24,7 +24,7 @@ i18n
     resources: {
       en: {
         translation: {
-          title: "Doré Gardens",
+          title: "Les jardins du Doré",
           contribute: "Contribute!",
           intro: `
             TADAM ! En arrivant sur cette page, j'espère que vous vous
