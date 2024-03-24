@@ -1,5 +1,5 @@
-import Dirt from '../../images/dirt.png'
 import Mnm from '../../images/mnm.png'
+import Plan from '../../images/plan.png'
 
 type T = (x: string) => void
 
@@ -29,8 +29,8 @@ export function project(t: T) {
     headline: t("projectTitle"),
     description: t("projectDescription"),
     imgStart: false,
-    img: Dirt,
-    alt: '...',
+    img: Plan,
+    alt: 'Plan',
     darkText: false,
   };
 }
