@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/static/css/main.95ad5be9.css",
-    "main.js": "/static/js/main.932e0295.js",
+    "main.js": "/static/js/main.763bf460.js",
     "static/media/photo1.png": "/static/media/photo1.79eec42597e953314695.png",
     "static/media/photo2.png": "/static/media/photo2.2dffa11b51ad8587c641.png",
     "static/media/photo3.png": "/static/media/photo3.ac25b1ce15f49774fdd8.png",
     "static/media/dirt.png": "/static/media/dirt.fe19c069295a90aad294.png",
     "static/media/euro.png": "/static/media/euro.92e1b22eac4ed6d9c864.png",
-    "static/media/mnm.png": "/static/media/mnm.39438fe5b0b01d300cc5.png",
+    "static/media/mnm.png": "/static/media/mnm.aec78a15edbd423c7976.png",
     "static/media/interac.png": "/static/media/interac.6c2a809a155e1be26cc9.png",
     "static/media/time.png": "/static/media/time.7784577336173d20982d.png",
     "static/media/roboto-latin-400-normal.woff2": "/static/media/roboto-latin-400-normal.b009a76ad6afe4ebd301.woff2",
@@ -28,10 +28,10 @@
     "static/media/roboto-greek-ext-400-normal.woff": "/static/media/roboto-greek-ext-400-normal.f708607d2a7290fb8bfa.woff",
     "index.html": "/index.html",
     "main.95ad5be9.css.map": "/static/css/main.95ad5be9.css.map",
-    "main.932e0295.js.map": "/static/js/main.932e0295.js.map"
+    "main.763bf460.js.map": "/static/js/main.763bf460.js.map"
   },
   "entrypoints": [
     "static/css/main.95ad5be9.css",
-    "static/js/main.932e0295.js"
+    "static/js/main.763bf460.js"
   ]
 }
