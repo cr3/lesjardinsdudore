@@ -1,6 +1,5 @@
 import Dirt from '../../images/dirt.png'
 import Mnm from '../../images/mnm.png'
-import Rene from '../../images/rene.png'
 
 type T = (x: string) => void
 
