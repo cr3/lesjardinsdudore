@@ -25,6 +25,21 @@ const { t } = useTranslation();
       <ContributeH1>{t("contribute")}</ContributeH1>
       <ContributeWrapper>
         <ContributeCard>
+          <ContributeIcon src={Euro} />
+          <ContributeH2>En espèces</ContributeH2>
+          <ContributeP>Lors de l'événement!</ContributeP>
+        </ContributeCard>
+        <ContributeCard>
+          <ContributeIcon src={Time} />
+          <ContributeH2>En temps</ContributeH2>
+          <ContributeP>Pour les voyageurs et ceux qui habitent le continent.</ContributeP>
+        </ContributeCard>
+        <ContributeCard>
+          <ContributeIcon src={Ideas} />
+          <ContributeH2>En compétences</ContributeH2>
+          <ContributeP>Votre expérience est précieuse à nos yeux.</ContributeP>
+        </ContributeCard>
+        <ContributeCard>
           <ContributeIcon src={Wise} />
           <ContributeH2>Virement à l'international</ContributeH2>
           <ContributeP>
@@ -44,21 +59,6 @@ const { t } = useTranslation();
           <ContributeP>
             <ContributeLink href='https://www.paypal.com/pools/c/92Y6lpgyrc'>Paypal</ContributeLink>
           </ContributeP>
-        </ContributeCard>
-        <ContributeCard>
-          <ContributeIcon src={Euro} />
-          <ContributeH2>En espèces</ContributeH2>
-          <ContributeP>Lors de l'événement!</ContributeP>
-        </ContributeCard>
-        <ContributeCard>
-          <ContributeIcon src={Time} />
-          <ContributeH2>En temps</ContributeH2>
-          <ContributeP>Pour les voyageurs et ceux qui habitent le continent.</ContributeP>
-        </ContributeCard>
-        <ContributeCard>
-          <ContributeIcon src={Ideas} />
-          <ContributeH2>En compétences</ContributeH2>
-          <ContributeP>Votre expérience est précieuse à nos yeux.</ContributeP>
         </ContributeCard>
       </ContributeWrapper>
     </ContributeContainer>
