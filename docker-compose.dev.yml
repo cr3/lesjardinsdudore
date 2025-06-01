@@ -1,0 +1,6 @@
+services:
+  frontend:
+    build:
+      target: dev
+    environment:
+      NODE_ENV: development

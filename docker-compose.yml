@@ -1,0 +1,25 @@
+services:
+  dyndns:
+    build: dyndns
+    volumes:
+      - ./dyndns/settings.txt:/settings.txt
+
+  frontend:
+    build:
+      context: frontend
+      target: prod
+    ports:
+      - "${FRONTEND_PORT:-127.0.0.1:3000}:3000"
+    restart: always
+    networks:
+      - network
+
+networks:
+  network:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: br-lesjardinsdudore
+    ipam:
+      driver: default
+      config:
+        - subnet: ${IPV4_NETWORK:-172.22.3}.0/24
