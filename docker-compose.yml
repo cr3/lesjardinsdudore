@@ -1,6 +1,7 @@
 services:
   dyndns:
     build: dyndns
+    restart: always
     volumes:
       - ./dyndns/settings.txt:/settings.txt
 
@@ -8,9 +9,17 @@ services:
     build:
       context: frontend
       target: prod
+    volumes:
+      - certbot-www:/web:ro,z
+      - certbot-certs:/etc/letsencrypt:ro,z
+      - ./frontend/conf.d/:/etc/nginx/conf.d/:z
     ports:
-      - "${FRONTEND_PORT:-:3000}:3000"
+      - "${HTTPS_PORT:-3443}:3443"
+      - "${HTTP_PORT:-3000}:3000"
     restart: always
+    networks:
+      network:
+        ipv4_address: ${IPV4_NETWORK:-172.22.3}.250
 
   certbot:
     image: certbot/certbot
@@ -21,6 +30,7 @@ services:
         certbot renew --webroot --webroot-path=/var/www/html --deploy-hook /deploy-hook.sh;
         sleep 12h;
       done"
+    restart: always
     environment:
       - SERVER_HOSTNAME=${SERVER_HOSTNAME}
     volumes:
@@ -28,6 +38,14 @@ services:
       - certbot-certs:/etc/letsencrypt
       - certbot-www:/var/www/html
     network_mode: "host"
+
+networks:
+  network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: ${IPV4_NETWORK:-172.22.3}.0/24
 
 volumes:
   certbot-certs:

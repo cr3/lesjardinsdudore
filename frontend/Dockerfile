@@ -19,12 +19,11 @@ RUN npm install --frozen-lockfile
 COPY . ./
 
 EXPOSE 3000
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "start"]
 
 FROM nginx:alpine AS prod
 
-COPY --from=build /app/public /usr/share/nginx/html
-COPY ./conf.d /etc/nginx/conf.d
+COPY --from=build /app/build /usr/share/nginx/html
 
-EXPOSE 3000
+EXPOSE 3000 3443
 CMD ["nginx", "-g", "daemon off;"]
