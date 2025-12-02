@@ -3,3 +3,6 @@
 
 # pytest-xprocess cache
 .xprocess/
+
+# Data files
+data/
