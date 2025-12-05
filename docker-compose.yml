@@ -33,9 +33,34 @@ services:
       - certbot-www:/var/www/html
     network_mode: "host"
 
+  pihole:
+    image: pihole/pihole:latest
+    depends_on:
+      unbound:
+        condition: service_healthy
+    restart: always
+    ports:
+      - "${DNS_PORT:-53}:53/tcp"
+      - "${DNS_PORT:-53}:53/udp"
+      - "${PI_HOLE_PORT:-8888}:80/tcp"
+    environment:
+      - TZ=${TZ}
+      - FTLCONF_webserver_api_password=${PI_HOLE_PASS}
+      - FTLCONF_dns_upstreams=unbound#53
+      - FTLCONF_dns_listeningMode=ALL
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+
+  unbound:
+    build: unbound
+    volumes:
+      - ./unbound/unbound.conf:/etc/unbound/unbound.conf:ro,Z
+    restart: always
+
   samba:
     build: samba
-    restart: unless-stopped
+    restart: always
     environment:
       - SAMBA_USER=smbuser
       - SAMBA_PASS=smbpass
