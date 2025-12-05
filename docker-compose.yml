@@ -32,6 +32,24 @@ services:
         ipv4_address: ${IPV4_NETWORK:-172.22.3}.250
     restart: always
 
+  ofelia:
+    image: mcuadros/ofelia:0.3.19
+    depends_on:
+      dovecot:
+        condition: service_started
+      sogo:
+        condition: service_started
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - TZ=${TZ}
+    command: daemon --docker -f label=com.docker.compose.project=${COMPOSE_PROJECT_NAME:-lesjardinsdudore}
+    restart: always
+    labels:
+      ofelia.enabled: "true"
+    security_opt:
+      - label=disable
+
   pihole:
     image: pihole/pihole:2025.11.1
     depends_on:
@@ -78,6 +96,12 @@ services:
       default:
         ipv4_address: ${IPV4_NETWORK:-172.22.1}.254
     restart: always
+    labels:
+      ofelia.enabled: "true"
+      ofelia.job-exec.block_facebook.schedule: "0 0 8 * * *"
+      ofelia.job-exec.block_facebook.command: "unbound-control local_zone facebook.com always_nxdomain"
+      ofelia.job-exec.unblock_facebook.schedule: "0 0 12 * * *"
+      ofelia.job-exec.unblock_facebook.command: "unbound-control local_zone_remove facebook.com"
     dns:
       - 1.1.1.1
       - 8.8.8.8
