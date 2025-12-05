@@ -16,7 +16,7 @@ services:
         ipv4_address: ${IPV4_NETWORK:-172.22.3}.250
 
   certbot:
-    image: certbot/certbot
+    image: certbot/certbot:v5.2.1
     entrypoint: ""
     command: >
       sh -c "trap exit TERM;
@@ -34,7 +34,7 @@ services:
     network_mode: "host"
 
   pihole:
-    image: pihole/pihole:latest
+    image: pihole/pihole:2025.11.1
     depends_on:
       unbound:
         condition: service_healthy
@@ -43,20 +43,27 @@ services:
       - "${DNS_PORT:-53}:53/tcp"
       - "${DNS_PORT:-53}:53/udp"
       - "${PI_HOLE_PORT:-8888}:80/tcp"
+    volumes:
+      - pihole-etc:/etc/pihole
     environment:
       - TZ=${TZ}
       - FTLCONF_webserver_api_password=${PI_HOLE_PASS}
       - FTLCONF_dns_upstreams=unbound#53
       - FTLCONF_dns_listeningMode=ALL
     dns:
-      - 1.1.1.1
-      - 8.8.8.8
+      - ${IPV4_NETWORK:-172.22.1}.254
 
   unbound:
     build: unbound
     volumes:
       - ./unbound/unbound.conf:/etc/unbound/unbound.conf:ro,Z
     restart: always
+    networks:
+      default:
+        ipv4_address: ${IPV4_NETWORK:-172.22.1}.254
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
 
   samba:
     build: samba
@@ -87,3 +94,4 @@ networks:
 volumes:
   certbot-certs:
   certbot-www:
+  pihole-etc:
