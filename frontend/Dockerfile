@@ -1,29 +1,24 @@
-ARG NODE_VERSION=22
+ARG NODE_VERSION=24
+ARG NGINX_VERSION=1.29.4
+
 FROM node:${NODE_VERSION}-alpine AS build
 
+ARG VITE_API_URL
+ENV VITE_API_URL=${VITE_API_URL}
+
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-RUN npm install --frozen-lockfile
+COPY package.json package-lock.json* ./
+RUN npm ci
 
-COPY . ./
+COPY . .
 RUN npm run build
 
-FROM node:${NODE_VERSION}-alpine AS dev
+FROM nginx:${NGINX_VERSION}-alpine
 
-WORKDIR /app
+COPY --from=build /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-COPY package.json package-lock.json ./
-RUN npm install --frozen-lockfile
+EXPOSE 80
 
-COPY . ./
-
-EXPOSE 3000
-CMD ["npm", "run", "start"]
-
-FROM nginx:alpine AS prod
-
-COPY --from=build /app/build /usr/share/nginx/html
-
-EXPOSE 3000 3443
 CMD ["nginx", "-g", "daemon off;"]

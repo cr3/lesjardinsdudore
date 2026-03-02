@@ -15,11 +15,17 @@ setup: $(NODE_MODULES)
 
 .PHONY: check
 check: $(NODE_MODULES)
+	@echo Linting code: Running biome
+	@npm run lint
 
 .PHONY: test
 test: $(NODE_MODULES)
+	@echo Testing code: Running vitest
+	@npm run test
 
 .PHONY: coverage
 coverage: $(NODE_MODULES)
+	@echo Testing code: Running vitest --coverage
+	@npm run coverage
 
 .DEFAULT_GOAL := test

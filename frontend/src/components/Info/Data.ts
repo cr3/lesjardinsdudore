@@ -1,7 +1,7 @@
 import Mnm from '../../images/mnm.png'
 import Plan from '../../images/plan.png'
 
-type T = (x: string) => void
+type T = (x: string) => string
 
 export function team(t: T) {
   return {

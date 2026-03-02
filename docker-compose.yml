@@ -16,29 +16,40 @@ services:
       done"
     entrypoint: ""
     restart: always
+
   frontend:
     build:
       context: frontend
-      target: prod
-    volumes:
-      - certbot-www:/web:ro,z
-      - certbot-certs:/etc/letsencrypt:ro,z
-      - ./frontend/conf.d/:/etc/nginx/conf.d/:z
-    ports:
-      - '${HTTP_PORT:-3000}:3000'
-      - '${HTTPS_PORT:-3443}:3443'
+      args:
+        VITE_API_URL: ${VITE_API_URL:-}
     networks:
       default:
-        ipv4_address: ${IPV4_NETWORK:-172.22.3}.250
+        aliases:
+          - lesjardinsdudore-frontend
+    restart: always
+
+  nginx:
+    build: nginx
+    depends_on:
+      frontend:
+        condition: service_started
+    volumes:
+      - certbot-www:/web:ro
+      - certbot-certs:/etc/letsencrypt:ro
+      - ./nginx/conf.d/:/etc/nginx/conf.d/:z
+    environment:
+      - SERVER_HOSTNAME=${SERVER_HOSTNAME}
+      - ADDITIONAL_SERVER_NAMES=${ADDITIONAL_SERVER_NAMES:-}
+      - IPV4_NETWORK=${IPV4_NETWORK:-172.22.1}
+    networks:
+      default:
+        ipv4_address: ${IPV4_NETWORK:-172.22.1}.240
+        aliases:
+          - lesjardinsdudore-nginx
     restart: always
 
   ofelia:
     image: mcuadros/ofelia:0.3.19
-    depends_on:
-      dovecot:
-        condition: service_started
-      sogo:
-        condition: service_started
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:

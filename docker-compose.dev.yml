@@ -1,11 +1,5 @@
 name: lesjardinsdudore
 services:
-  frontend:
-    build:
-      target: dev
-    environment:
-      NODE_ENV: development
-
   unbound:
     healthcheck:
       test: [ "CMD-SHELL", "exit 0" ]
