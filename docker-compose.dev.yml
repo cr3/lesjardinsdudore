@@ -1,5 +1,18 @@
 name: lesjardinsdudore
 services:
+  api:
+    volumes:
+      - ./backend/lesjardinsdudore:/app/lesjardinsdudore
+    command: >
+      uvicorn --host=0.0.0.0 --port=80 lesjardinsdudore.api:app --log-config=/app/log-config.dev.yaml --reload
+
+  permaculture:
+    volumes:
+      - ./backend/tests/integration/fixtures:/fixtures:ro
+    environment:
+      JSON_INGESTOR_PATH: /fixtures/plants.json
+    command: permaculture --ingestor=json ingest
+
   unbound:
     healthcheck:
       test: [ "CMD-SHELL", "exit 0" ]

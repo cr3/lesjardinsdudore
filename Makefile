@@ -1,5 +1,5 @@
 ENV := .env
-SUBDIRS := frontend
+SUBDIRS := backend frontend
 TARGETS := setup check test coverage
 
 -include $(ENV)
