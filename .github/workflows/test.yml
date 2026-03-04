@@ -18,6 +18,11 @@ jobs:
         with:
           node-version: 20
 
+      - name: Set up Python environment
+        uses: ./.github/actions/setup-uv-env
+        with:
+          extras: check
+
       - name: Run check target
         run: make check
 
