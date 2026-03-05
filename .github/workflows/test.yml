@@ -82,6 +82,7 @@ jobs:
           merge-multiple: true
 
       - name: Run coverage target
+        working-directory: backend
         run: make coverage
 
       - name: Upload HTML report if check failed.
