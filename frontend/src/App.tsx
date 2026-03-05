@@ -1,6 +1,7 @@
 import React from 'react';
 import Home from './pages';
-import { BrowserRouter } from 'react-router-dom';
+import Plantes from './pages/Plantes';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import "@fontsource/roboto";
 import './components/Lang/config';
 import './App.css';
@@ -8,7 +9,10 @@ import './App.css';
 const App: React.FC = () => {
   return (
     <BrowserRouter>
-      <Home />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/plantes" element={<Plantes />} />
+      </Routes>
     </BrowserRouter>
   );
 
