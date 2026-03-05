@@ -1,5 +1,5 @@
 ENV := .env
-SUBDIRS := backend frontend
+SUBDIRS := frontend backend permaculture
 TARGETS := setup check test coverage
 
 -include $(ENV)

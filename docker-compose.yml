@@ -13,7 +13,7 @@ services:
       permaculture:
         condition: service_completed_successfully
     volumes:
-      - permaculture-storage:/storage
+      - permaculture-storage:/storage:ro
     environment:
       PERMACULTURE_STORAGE: /storage
     networks:
@@ -95,10 +95,7 @@ services:
       - label=disable
 
   permaculture:
-    build:
-      context: backend
-      args:
-        <<: *python-build-args
+    build: permaculture
     volumes:
       - permaculture-storage:/storage
       - ./permaculture:/permaculture
@@ -109,7 +106,6 @@ services:
       PERMACULTURE_NC_USERNAME: ${NC_USERNAME}
       PERMACULTURE_NC_PASSWORD_FILE: /run/secrets/nc_password
       PERMACULTURE_PFAF_FILE: ${PFAF_FILE}
-    command: permaculture ingest
     restart: "no"
 
   pihole:
@@ -183,7 +179,6 @@ volumes:
   certbot-certs:
   certbot-www:
   pihole-etc:
-
 
 secrets:
   nc_password:

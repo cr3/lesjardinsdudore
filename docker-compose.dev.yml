@@ -11,7 +11,7 @@ services:
       - ./backend/tests/integration/fixtures:/fixtures:ro
     environment:
       JSON_INGESTOR_PATH: /fixtures/plants.json
-    command: permaculture --ingestor=json ingest
+    command: --ingestor=json ingest
 
   unbound:
     healthcheck:

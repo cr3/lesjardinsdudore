@@ -8,10 +8,6 @@ FROM base AS build
 
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-RUN apk add --no-cache \
-  build-base \
-  pkgconf
-
 WORKDIR /app
 
 COPY uv.lock pyproject.toml ./

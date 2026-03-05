@@ -4,7 +4,7 @@ import json
 
 from permaculture.database import DatabasePlant
 
-from lesjardinsdudore.testing.ingestor import JSONIngestor
+from lesjardinsdudore.permaculture.ingestor import JSONIngestor
 
 
 def test_fetch_all(tmp_path):
