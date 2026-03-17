@@ -4,9 +4,10 @@ import csv
 import logging
 import re
 import types
+from collections.abc import Iterator
 from datetime import date
 from io import StringIO
-from typing import Annotated, Iterator
+from typing import Annotated
 
 from attrs import define
 from permaculture.google import GoogleSpreadsheet
