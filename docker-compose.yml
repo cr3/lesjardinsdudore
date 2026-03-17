@@ -9,12 +9,10 @@ services:
       context: backend
       args:
         <<: *python-build-args
-    depends_on:
-      permaculture:
-        condition: service_completed_successfully
     volumes:
       - permaculture-storage:/storage:ro
     environment:
+      INVENTORY_URL: ${INVENTORY_URL}
       PERMACULTURE_STORAGE: /storage
     networks:
       default:
