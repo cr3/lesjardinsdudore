@@ -6,12 +6,27 @@ services:
     command: >
       uvicorn --host=0.0.0.0 --port=80 lesjardinsdudore.api:app --log-config=/app/log-config.dev.yaml --reload
 
+  certbot:
+    volumes:
+      - ./certbot/generate-cert.sh:/generate-cert.sh:ro
+    environment:
+      - IPV4_NETWORK=${IPV4_NETWORK:-172.22.1}
+    command: >
+      sh -c "trap exit TERM; /generate-cert.sh; /deploy-hook.sh; echo Ready; sleep infinity"
+
   permaculture:
     volumes:
-      - ./backend/tests/integration/fixtures:/fixtures:ro
+      - ./permaculture/permaculture:/app/permaculture
+    command: >
+      permaculture-web --host=0.0.0.0 --port=80 --reload
+
+  permaculture-init:
+    volumes:
+      - ./permaculture/tests/integration/fixtures:/fixtures:ro
     environment:
-      JSON_INGESTOR_PATH: /fixtures/plants.json
-    command: --ingestor=json ingest
+      PERMACULTURE_LOCAL_PATH: /fixtures/plants.json
+    command: >
+      sh -c "permaculture --ingestor=local ingest; echo Ready"
 
   unbound:
     healthcheck:

@@ -89,6 +89,14 @@ location /api/ {
     proxy_redirect off;
 }
 
+location /permaculture/ {
+    proxy_pass       http://lesjardinsdudore-permaculture;
+    proxy_set_header Host      $http_host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_redirect off;
+}
+
 location = /plantes.ics {
     proxy_pass       http://lesjardinsdudore-api/plants.ics;
     proxy_set_header Host      $http_host;

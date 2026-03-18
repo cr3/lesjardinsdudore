@@ -83,3 +83,25 @@ def api_service(compose_server):
 def api_session(api_service):
     """API HTTP session to the service fixture."""
     return HTTPSession(f"http://{api_service.ip}/")
+
+
+@pytest.fixture(scope="session")
+def permaculture_init(compose_server):
+    """API service fixture."""
+    server = compose_server("Ready")
+    with server.run("permaculture-init") as service:
+        yield service
+
+
+@pytest.fixture(scope="session")
+def permaculture_service(compose_server, permaculture_init):
+    """API service fixture."""
+    server = compose_server("Application startup complete")
+    with server.run("permaculture") as service:
+        yield service
+
+
+@pytest.fixture(scope="session")
+def permaculture_session(permaculture_service):
+    """API HTTP session to the service fixture."""
+    return HTTPSession(f"http://{permaculture_service.ip}/")
