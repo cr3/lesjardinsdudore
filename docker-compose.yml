@@ -32,7 +32,7 @@ services:
       - certbot-certs:/etc/letsencrypt
       - certbot-www:/var/www/html
     environment:
-      - SERVER_HOSTNAME=${SERVER_HOSTNAME}
+      SERVER_HOSTNAME: ${SERVER_HOSTNAME}
     network_mode: "host"
     command: >
       sh -c "trap exit TERM; while :; do
@@ -78,9 +78,9 @@ services:
       - certbot-certs:/etc/letsencrypt:ro
       - ./nginx/conf.d/:/etc/nginx/conf.d/:z
     environment:
-      - SERVER_HOSTNAME=${SERVER_HOSTNAME}
-      - ADDITIONAL_SERVER_NAMES=${ADDITIONAL_SERVER_NAMES:-}
-      - IPV4_NETWORK=${IPV4_NETWORK:-172.22.1}
+      SERVER_HOSTNAME: ${SERVER_HOSTNAME}
+      ADDITIONAL_SERVER_NAMES: ${ADDITIONAL_SERVER_NAMES:-}
+      IPV4_NETWORK: ${IPV4_NETWORK:-172.22.1}
     networks:
       default:
         ipv4_address: ${IPV4_NETWORK:-172.22.1}.240
@@ -93,7 +93,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
-      - TZ=${TZ}
+      TZ: ${TZ}
     command: daemon --docker -f label=com.docker.compose.project=${COMPOSE_PROJECT_NAME:-lesjardinsdudore}
     restart: always
     labels:
@@ -107,6 +107,7 @@ services:
       - permaculture-storage:/storage:ro
     environment:
       PERMACULTURE_DATABASE: /storage/permaculture.db
+      SERVER_HOSTNAME: ${SERVER_HOSTNAME}
     networks:
       default:
         aliases:
@@ -145,10 +146,10 @@ services:
     volumes:
       - pihole-etc:/etc/pihole
     environment:
-      - TZ=${TZ}
-      - FTLCONF_webserver_api_password=${PI_HOLE_PASS}
-      - FTLCONF_dns_upstreams=unbound#53
-      - FTLCONF_dns_listeningMode=ALL
+      TZ: ${TZ}
+      FTLCONF_webserver_api_password: ${PI_HOLE_PASS}
+      FTLCONF_dns_upstreams: unbound#53
+      FTLCONF_dns_listeningMode: ALL
     ports:
       - '${DNS_PORT:-53}:53/tcp'
       - '${DNS_PORT:-53}:53/udp'
@@ -163,10 +164,10 @@ services:
       - ./data:/data
       - ./samba/smb.conf:/etc/samba/smb.conf:ro
     environment:
-      - SAMBA_USER=smbuser
-      - SAMBA_PASS=smbpass
-      - SAMBA_UID=1000
-      - SAMBA_GID=1000
+      SAMBA_USER: smbuser
+      SAMBA_PASS: smbpass
+      SAMBA_UID: 1000
+      SAMBA_GID: 1000
     ports:
       - '137:137/udp'
       - '138:138/udp'
