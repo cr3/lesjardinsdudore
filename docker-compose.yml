@@ -104,7 +104,7 @@ services:
   permaculture:
     build: permaculture
     volumes:
-      - permaculture-storage:/storage:ro
+      - permaculture-storage:/storage
     environment:
       PERMACULTURE_DATABASE: /storage/permaculture.db
       SERVER_HOSTNAME: ${SERVER_HOSTNAME}

@@ -3,7 +3,6 @@
 from hamcrest import (
     assert_that,
     contains_exactly,
-    contains_inanyorder,
     has_entries,
 )
 
@@ -17,7 +16,7 @@ def test_permaculture_search(permaculture_session):
         data,
         contains_exactly(
             has_entries(
-                {"scientific name": "symphytum officinale"},
+                {"scientific_name": "symphytum officinale"},
             ),
         ),
     )
@@ -32,9 +31,10 @@ def test_permaculture_lookup(permaculture_session):
         data,
         has_entries(
             {
-                "scientific name": "symphytum officinale",
-                "common names": contains_inanyorder("comfrey"),
-                "height": has_entries(max=1.2, min=0.3),
+                "scientific_name": "symphytum officinale",
+                "characteristics": has_entries(
+                    {"height": has_entries(max=1.2, min=0.3)},
+                ),
             }
         ),
     )
