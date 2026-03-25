@@ -89,7 +89,7 @@ services:
     restart: always
 
   ofelia:
-    image: mcuadros/ofelia:0.3.21
+    image: mcuadros/ofelia:v3.0.8
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
