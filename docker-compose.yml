@@ -139,7 +139,7 @@ services:
     restart: "no"
 
   pihole:
-    image: pihole/pihole:2025.11.1
+    image: pihole/pihole:2026.02.0
     depends_on:
       unbound:
         condition: service_healthy
