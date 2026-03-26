@@ -59,13 +59,16 @@ real_ip_header proxy_protocol;
 {% endif %}
 real_ip_recursive on;
 
+resolver 127.0.0.11 valid=10s;
+
 location ^~ /.well-known/acme-challenge/ {
     allow all;
     default_type "text/plain";
 }
 
 location / {
-    proxy_pass       http://lesjardinsdudore-frontend;
+    set $upstream_frontend http://lesjardinsdudore-frontend;
+    proxy_pass       $upstream_frontend;
     proxy_set_header Host      $http_host;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header X-Real-IP $remote_addr;
@@ -82,7 +85,8 @@ location /nginx_status {
 }
 
 location /api/ {
-    proxy_pass       http://lesjardinsdudore-api;
+    set $upstream_api http://lesjardinsdudore-api;
+    proxy_pass       $upstream_api;
     proxy_set_header Host      $http_host;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header X-Real-IP $remote_addr;
@@ -90,7 +94,8 @@ location /api/ {
 }
 
 location /permaculture/ {
-    proxy_pass       http://lesjardinsdudore-permaculture;
+    set $upstream_permaculture http://lesjardinsdudore-permaculture;
+    proxy_pass       $upstream_permaculture;
     proxy_set_header Host      $http_host;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header X-Real-IP $remote_addr;
@@ -98,7 +103,9 @@ location /permaculture/ {
 }
 
 location = /plantes.ics {
-    proxy_pass       http://lesjardinsdudore-api/plants.ics;
+    set $upstream_api_ics http://lesjardinsdudore-api;
+    rewrite ^ /plants.ics break;
+    proxy_pass       $upstream_api_ics;
     proxy_set_header Host      $http_host;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header X-Real-IP $remote_addr;
