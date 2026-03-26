@@ -4,10 +4,6 @@ RUN := uv run
 PYTHON := $(RUN) python
 TOUCH := $(PYTHON) -c 'import sys; from pathlib import Path; Path(sys.argv[1]).touch()'
 
-# Find all the .po we want to format into .mo files.
-PO_FILES := $(wildcard lesjardinsdudore/locales/*/LC_MESSAGES/*.po)
-MO_FILES := $(PO_FILES:.po=.mo)
-
 uv.lock: pyproject.toml
 	uv lock
 
@@ -28,17 +24,8 @@ check: $(VENV)
 	@echo "==> Linting Python code..."
 	@$(RUN) ruff check .
 
-%.po: $(VENV)
-
-%.mo: %.po
-	@$(RUN) scripts/msgfmt.py --output-file $@ $^
-
-# Convenience target to build locales.
-.PHONY: locales
-locales: $(MO_FILES)
-
 .PHONY: test
-test: locales
+test:
 	@echo "==> Testing Python code..."
 	@$(RUN) coverage run -p -m pytest
 
