@@ -90,10 +90,10 @@ class TestInventoryPlant:
             "date": "2025",
             "début stratif ❄️": "",
             "fin stratif": "",
-            "Date semis int.": "15 mars 2026",
+            "SI": "15 mars 2026",
             "Semaines accl": "",
             "date trans": "",
-            "date SD 1": "1er juin 2026",
+            "SD1": "1er juin 2026",
             "SD2": "",
             "NOTES": "semer tôt",
             "Distance (cm)": "10",
@@ -111,7 +111,7 @@ class TestInventoryPlant:
 
     def test_unparseable_date_becomes_none(self, row):
         """An unparseable date string should become None."""
-        row["Date semis int."] = "fin février"
+        row["SI"] = "fin février"
         plant = InventoryPlant.model_validate(row)
         assert plant.date_semis_interieur is None
 

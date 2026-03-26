@@ -94,56 +94,28 @@ class InventoryPlant(BaseModel):
     projet: str = Field(alias="projet")
     origine: str = Field(alias="origine")
     date: str = Field(alias="date")
-    debut_stratification: FrenchDate = Field(
-        default=None,
-        alias="début stratif ❄️",
-        title="Début stratification",
-    )
-    fin_stratification: FrenchDate = Field(
-        default=None,
-        alias="fin stratif",
-        title="Fin stratification",
-    )
-    date_semis_interieur: FrenchDate = Field(
-        default=None,
-        alias="Date semis int.",
-        title="Semis intérieur",
-    )
-    semaines_acclimatation: str = Field(
-        default="", alias="Semaines accl"
-    )
-    date_transplantation: FrenchDate = Field(
-        default=None,
-        alias="date trans",
-        title="Transplantation",
-    )
-    date_semis_direct_1: FrenchDate = Field(
-        default=None,
-        alias="date SD 1",
-        title="Semis direct 1",
-    )
-    date_semis_direct_2: FrenchDate = Field(
-        default=None,
-        alias="SD2",
-        title="Semis direct 2",
-    )
+    debut_stratification: FrenchDate = Field(default=None, alias="début stratif ❄️")
+    fin_stratification: FrenchDate = Field(default=None, alias="fin stratif")
+    date_semis_interieur: FrenchDate = Field(default=None, alias="SI")
+    semaines_acclimatation: str = Field(default="", alias="Semaines accl")
+    date_transplantation: FrenchDate = Field(default=None, alias="date trans")
+    date_semis_direct_1: FrenchDate = Field(default=None, alias="SD1")
+    date_semis_direct_2: FrenchDate = Field(default=None, alias="SD2")
     notes: str = Field(default="", alias="NOTES")
     distance_cm: str = Field(default="", alias="Distance (cm)")
-    semences_a_recolter: str = Field(
-        default="", alias="SEMENCES à RÉCOLTER"
-    )
+    semences_a_recolter: str = Field(default="", alias="SEMENCES à RÉCOLTER")
 
     @classmethod
     def date_fields(cls):
-        """Yield (field_name, title) for each date field.
+        """Yield (field_name, alias) for each date field.
 
         >>> list(InventoryPlant.date_fields())[0]
-        ('debut_stratification', 'Début stratification')
+        ('debut_stratification', 'début stratif ❄️')
         """
         for name, field in cls.model_fields.items():
             ann = field.annotation
             if isinstance(ann, types.UnionType) and date in ann.__args__:
-                yield name, field.title
+                yield name, field.alias
 
 
 @define(frozen=True)

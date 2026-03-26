@@ -1,4 +1,4 @@
-﻿"""Unit tests for the api module."""
+"""Unit tests for the api module."""
 
 from datetime import date
 from unittest.mock import Mock
@@ -22,10 +22,10 @@ def make_plant(**overrides):
         "date": "2025",
         "début stratif ❄️": "",
         "fin stratif": "",
-        "Date semis int.": "",
+        "SI": "",
         "Semaines accl": "",
         "date trans": "",
-        "date SD 1": "",
+        "SD1": "",
         "SD2": "",
         "NOTES": "",
         "Distance (cm)": "",
@@ -42,8 +42,8 @@ class TestPlantEvents:
         """Each date field should produce one event."""
         plant = make_plant(
             **{
-                "Date semis int.": "15 mars 2026",
-                "date SD 1": "1er juin 2026",
+                "SI": "15 mars 2026",
+                "SD1": "1er juin 2026",
             }
         )
         events = list(plant_events(plant))
@@ -51,16 +51,16 @@ class TestPlantEvents:
 
     def test_event_summary(self):
         """Event summary should include label, name, and famille."""
-        plant = make_plant(**{"date SD 1": "1er juin 2026"})
+        plant = make_plant(**{"SD1": "1er juin 2026"})
         event = next(iter(plant_events(plant)))
         summary = str(event["summary"])
-        assert "Semis direct 1" in summary
+        assert "SD1" in summary
         assert "carotte Danvers" in summary
         assert "apiacées" in summary
 
     def test_event_dates(self):
         """Event should span one day."""
-        plant = make_plant(**{"date SD 1": "1er juin 2026"})
+        plant = make_plant(**{"SD1": "1er juin 2026"})
         event = next(iter(plant_events(plant)))
         assert event["dtstart"].dt == date(2026, 6, 1)
         assert event["dtend"].dt == date(2026, 6, 2)
@@ -68,14 +68,14 @@ class TestPlantEvents:
     def test_event_description_from_notes(self):
         """Notes should become the event description."""
         plant = make_plant(
-            **{"date SD 1": "1er juin 2026", "NOTES": "semer tôt"}
+            **{"SD1": "1er juin 2026", "NOTES": "semer tôt"}
         )
         event = next(iter(plant_events(plant)))
         assert str(event["description"]) == "semer tôt"
 
     def test_no_description_without_notes(self):
         """No description when notes are empty."""
-        plant = make_plant(**{"date SD 1": "1er juin 2026"})
+        plant = make_plant(**{"SD1": "1er juin 2026"})
         event = next(iter(plant_events(plant)))
         assert "description" not in event
 
@@ -97,14 +97,14 @@ class TestPlantsIcs:
                 make_plant(
                     **{
                         "Noms": "tomate",
-                        "Date semis int.": "15 mars 2026",
-                        "date SD 1": "1er juin 2026",
+                        "SI": "15 mars 2026",
+                        "SD1": "1er juin 2026",
                     }
                 ),
                 make_plant(
                     **{
                         "Noms": "basilic",
-                        "date SD 1": "20 mai 2026",
+                        "SI": "20 mai 2026",
                     }
                 ),
             ]
