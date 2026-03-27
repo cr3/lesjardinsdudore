@@ -88,19 +88,6 @@ services:
           - lesjardinsdudore-nginx
     restart: always
 
-  ofelia:
-    image: mcuadros/ofelia:v3.0.8
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    environment:
-      TZ: ${TZ}
-    command: daemon --docker -f label=com.docker.compose.project=${COMPOSE_PROJECT_NAME:-lesjardinsdudore}
-    restart: always
-    labels:
-      ofelia.enabled: "true"
-    security_opt:
-      - label=disable
-
   permaculture:
     build: permaculture
     volumes:
@@ -186,12 +173,6 @@ services:
         aliases:
           - lesjardinsdudore-unbound
     restart: always
-    labels:
-      ofelia.enabled: "true"
-      ofelia.job-exec.block_facebook.schedule: "0 0 8 * * *"
-      ofelia.job-exec.block_facebook.command: "unbound-control local_zone facebook.com always_nxdomain"
-      ofelia.job-exec.unblock_facebook.schedule: "0 0 12 * * *"
-      ofelia.job-exec.unblock_facebook.command: "unbound-control local_zone_remove facebook.com"
     dns:
       - 1.1.1.1
       - 8.8.8.8
