@@ -86,8 +86,22 @@ def api_session(api_service):
 
 
 @pytest.fixture(scope="session")
+def biodynamics_service(compose_server):
+    """Biodynamics service fixture."""
+    server = compose_server("Application startup complete")
+    with server.run("biodynamics") as service:
+        yield service
+
+
+@pytest.fixture(scope="session")
+def biodynamics_session(biodynamics_service):
+    """Biodynamics HTTP session to the service fixture."""
+    return HTTPSession(f"http://{biodynamics_service.ip}/")
+
+
+@pytest.fixture(scope="session")
 def permaculture_init(compose_server):
-    """API service fixture."""
+    """Permaculture service fixture."""
     server = compose_server("Ready")
     with server.run("permaculture-init") as service:
         yield service
@@ -95,7 +109,7 @@ def permaculture_init(compose_server):
 
 @pytest.fixture(scope="session")
 def permaculture_service(compose_server, permaculture_init):
-    """API service fixture."""
+    """Permaculture service fixture."""
     server = compose_server("Application startup complete")
     with server.run("permaculture") as service:
         yield service

@@ -25,6 +25,22 @@ services:
       timeout: 5s
       retries: 3
 
+  biodynamics:
+    build: biodynamics
+    networks:
+      default:
+        aliases:
+          - lesjardinsdudore-biodynamics
+    command: >
+      biodynamics-web --host=0.0.0.0 --port=80
+    restart: always
+    healthcheck:
+      test: [ "CMD", "python", "-c", "import socket; import sys; s=socket.socket(); s.settimeout(1); sys.exit(s.connect_ex(('localhost',80))>0)" ]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
   certbot:
     image: certbot/certbot:v5.4.0
     volumes:
@@ -70,6 +86,8 @@ services:
       frontend:
         condition: service_started
       api:
+        condition: service_healthy
+      biodynamics:
         condition: service_healthy
       permaculture:
         condition: service_healthy

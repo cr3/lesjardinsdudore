@@ -1,3 +1,6 @@
 [submodule "permaculture"]
 	path = permaculture
 	url = git@github.com:cr3/permaculture.git
+[submodule "biodynamics"]
+	path = biodynamics
+	url = git@github.com:cr3/biodynamics.git
