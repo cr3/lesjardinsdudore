@@ -144,7 +144,7 @@ services:
     restart: "no"
 
   pihole:
-    image: pihole/pihole:2026.02.0
+    image: pihole/pihole:2026.04.0
     depends_on:
       unbound:
         condition: service_healthy
