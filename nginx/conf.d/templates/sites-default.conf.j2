@@ -61,11 +61,6 @@ real_ip_recursive on;
 
 resolver 127.0.0.11 valid=10s;
 
-location ^~ /.well-known/acme-challenge/ {
-    allow all;
-    default_type "text/plain";
-}
-
 location / {
     set $upstream_frontend http://lesjardinsdudore-frontend;
     proxy_pass       $upstream_frontend;
