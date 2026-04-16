@@ -2,7 +2,8 @@ x-build-args: &python-build-args
   PYTHON_VERSION: ${PYTHON_VERSION:-3.13.10}
 
 name: lesjardinsdudore
-
+include:
+  - path: ./taracert/compose.yml
 services:
   api:
     build:
@@ -40,29 +41,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
-
-  certbot:
-    image: certbot/certbot:v5.5.0
-    volumes:
-      - ./certbot/deploy-hook.sh:/deploy-hook.sh:ro
-      - certbot-certs:/etc/letsencrypt
-      - certbot-www:/var/www/html
-    environment:
-      SERVER_HOSTNAME: ${SERVER_HOSTNAME}
-    network_mode: "host"
-    command: >
-      sh -c "trap exit TERM; while :; do
-        certbot renew --webroot --webroot-path=/var/www/html --deploy-hook /deploy-hook.sh;
-        sleep 12h;
-      done"
-    entrypoint: ""
-    restart: always
-    healthcheck:
-      test: [ "CMD", "test", "-e", "/etc/letsencrypt/live/${SERVER_HOSTNAME}/fullchain.pem" ]
-      start_period: 10s
-      interval: 10s
-      timeout: 5s
-      retries: 15
 
   frontend:
     build:
@@ -205,8 +183,6 @@ networks:
 
 volumes:
   permaculture-storage:
-  certbot-certs:
-  certbot-www:
   pihole-etc:
 
 secrets:

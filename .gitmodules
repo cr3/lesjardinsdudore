@@ -4,3 +4,6 @@
 [submodule "biodynamics"]
 	path = biodynamics
 	url = git@github.com:cr3/biodynamics.git
+[submodule "taracert"]
+	path = taracert
+	url = git@github.com:taradix/taracert.git
